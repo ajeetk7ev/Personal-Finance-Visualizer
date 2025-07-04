@@ -105,7 +105,15 @@ export default function HomePage() {
                       : ""
                     }`}
                 >
-                  ₹{i === 1 ? val : (+val).toFixed(2)}
+                  {i === 0
+                    ? "₹" + (+val).toFixed(2)
+                    : i === 2
+                      ? "₹" + (+val).toFixed(2)
+                      : i === 1
+                        ? val
+                        : ""}
+                        
+                  
                 </h2>
               </CardContent>
             </Card>
