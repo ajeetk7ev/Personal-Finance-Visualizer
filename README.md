@@ -21,11 +21,7 @@ This repository includes **Stage 1** of the Personal Finance Visualizer assignme
 
 ---
 
-## ✅ Stage 3 – Budgeting, Comparison & Insights
 
-This repository now includes **Stage 3** of the assignment: powerful **budgeting features**, **visual comparisons**, and **spending insights**.
-
----
 
 ## 🚀 Stage 2 – Categories, Filters, and Dashboard Summary
 
@@ -56,7 +52,11 @@ This repository now includes **Stage 3** of the assignment: powerful **budgeting
 
 ---
 
+## ✅ Stage 3 – Budgeting, Comparison & Insights
 
+This repository now includes **Stage 3** of the assignment: powerful **budgeting features**, **visual comparisons**, and **spending insights**.
+
+---
 ### 🎯 Features Added in Stage 3
 
 - 📝 **Create, Edit & Delete Budgets**
