@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, List, Menu, Plus } from "lucide-react";
+import { Home, List, Menu, Plus, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -11,8 +11,8 @@ const navLinks = [
   { href: "/", label: "Home", icon: <Home className="w-5 h-5" /> },
   { href: "/transactions", label: "Transactions", icon: <List className="w-5 h-5" /> },
   { href: "/transactions/create", label: "Create Transaction", icon: <Plus className="w-5 h-5" /> },
+  { href: "/budgets", label: "Budgets", icon: <Wallet className="w-5 h-5" /> }, // ✅ New Budgets link
 ];
-
 const Sidebar = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);

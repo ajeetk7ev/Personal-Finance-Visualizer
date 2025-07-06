@@ -21,6 +21,75 @@ This repository includes **Stage 1** of the Personal Finance Visualizer assignme
 
 ---
 
+## ✅ Stage 3 – Budgeting, Comparison & Insights
+
+This repository now includes **Stage 3** of the assignment: powerful **budgeting features**, **visual comparisons**, and **spending insights**.
+
+---
+
+## 🚀 Stage 2 – Categories, Filters, and Dashboard Summary
+
+### ✅ Features Added in Stage 2
+
+#### 🏷️ Transaction Categories
+- Introduced **predefined categories** like `Food`, `Travel`, `Health`, `Shopping`, and more.
+- Category selection integrated in both **Create** and **Edit** transaction forms.
+
+#### 📊 Filtering Capabilities
+- Filter transactions by **Month** and **Category**.
+- Analyze spending patterns quickly and intuitively.
+
+#### 📈 Dashboard Summary
+- Dashboard now includes:
+  - 📊 Monthly **Bar Chart** for visualizing expenses.
+  - 🔍 Summary stats:
+    - Total Spent
+    - Number of Transactions
+    - Highest Single Expense
+
+#### 🧾 Recent Transactions
+- Shows the **latest 5 entries** at a glance with clean UI.
+
+#### ✨ UI & UX Enhancements
+- Improved form fields, select dropdowns, and responsive design.
+- Consistent color scheme and better hover interactions.
+
+---
+
+
+### 🎯 Features Added in Stage 3
+
+- 📝 **Create, Edit & Delete Budgets**
+  - Monthly budgets by **category**
+  - Seamless UI with modal dialog form
+
+- 📊 **Budget vs Actual Comparison**
+  - Compare actual spending vs budgeted amount
+  - Visualized with a **dual bar chart**
+  - Color-coded: Green for Budgeted, Red for Spent
+
+- 🔍 **Filterable Visuals**
+  - Filter by **month** and **category** for targeted analysis
+
+- 💡 **Smart Spending Insights**
+  - 🔴 Over-budget detection
+  - 🟢 Under-budget & efficient spending highlights
+  - 🟡 Unused budget categories
+  - 💰 Highest spending zone
+
+---
+
+### 📌 Summary of All Stages
+
+| Stage | Description |
+|-------|-------------|
+| ✅ Stage 1 | Transaction creation, bar chart visualization, toast notifications |
+| ✅ Stage 2 | Categories, filters, pie chart breakdown, dashboard summary |
+| ✅ Stage 3 | Budget management, comparison chart, spending insights |
+
+---
+
+
 ## 🛠️ Tech Stack
 
 | Category         | Tech Used                        |

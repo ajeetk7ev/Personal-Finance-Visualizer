@@ -21,3 +21,11 @@ model Transaction {
   date        DateTime @default(now())
   category    String   @default("Other")
 }
+
+model Budget {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  category  String
+  amount    Float
+  month     String // Format: "2025-07" (YYYY-MM)
+  createdAt DateTime @default(now())
+}

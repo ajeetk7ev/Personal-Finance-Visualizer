@@ -20,6 +20,8 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { BarChart3 } from "lucide-react";
 
+import BudgetVsActualChart from "@/components/BudgetVsActualChart";
+
 type Transaction = {
   id: string;
   description: string;
@@ -132,9 +134,7 @@ export default function HomePage() {
                       : ""
                   }`}
                 >
-                  {i === 0 || i === 2
-                    ? "₹" + (+val).toFixed(2)
-                    : val}
+                  {i === 0 || i === 2 ? "₹" + (+val).toFixed(2) : val}
                 </h2>
               </CardContent>
             </Card>
@@ -199,6 +199,9 @@ export default function HomePage() {
           </Card>
         </motion.div>
       </motion.div>
+
+      {/* Budget vs Actual Chart */}
+      <BudgetVsActualChart />
 
       {/* Recent Transactions */}
       <motion.div
