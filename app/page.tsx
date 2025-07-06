@@ -8,6 +8,10 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
 } from "recharts";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,6 +27,17 @@ type Transaction = {
   date: string;
   category?: string;
 };
+
+const COLORS = [
+  "#34d399",
+  "#f87171",
+  "#60a5fa",
+  "#fbbf24",
+  "#a78bfa",
+  "#f472b6",
+  "#10b981",
+  "#facc15",
+];
 
 export default function HomePage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -47,8 +62,19 @@ export default function HomePage() {
     return acc;
   }, [] as { name: string; value: number }[]);
 
+  const categoryData = transactions.reduce((acc, t) => {
+    const cat = t.category || "Other";
+    const existing = acc.find((item) => item.name === cat);
+    if (existing) {
+      existing.value += t.amount;
+    } else {
+      acc.push({ name: cat, value: t.amount });
+    }
+    return acc;
+  }, [] as { name: string; value: number }[]);
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-10">
       {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -94,26 +120,21 @@ export default function HomePage() {
                   {i === 0
                     ? "Total Spent"
                     : i === 1
-                      ? "Transactions"
-                      : "Biggest Expense"}
+                    ? "Transactions"
+                    : "Biggest Expense"}
                 </p>
                 <h2
-                  className={`text-2xl font-bold ${i === 0
-                    ? "text-green-400"
-                    : i === 2
+                  className={`text-2xl font-bold ${
+                    i === 0
+                      ? "text-green-400"
+                      : i === 2
                       ? "text-red-400"
                       : ""
-                    }`}
+                  }`}
                 >
-                  {i === 0
+                  {i === 0 || i === 2
                     ? "₹" + (+val).toFixed(2)
-                    : i === 2
-                      ? "₹" + (+val).toFixed(2)
-                      : i === 1
-                        ? val
-                        : ""}
-                        
-                  
+                    : val}
                 </h2>
               </CardContent>
             </Card>
@@ -126,8 +147,9 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="grid grid-cols-1 gap-8 mt-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6"
       >
+        {/* Bar Chart */}
         <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.3 }}>
           <Card className="bg-zinc-800 p-4 shadow-md text-white rounded-2xl">
             <h3 className="text-xl font-semibold mb-4">Monthly Expenses</h3>
@@ -141,10 +163,38 @@ export default function HomePage() {
                   dataKey="value"
                   fill="#34d399"
                   radius={[4, 4, 0, 0]}
-                  isAnimationActive={true}
-                  className="cursor-pointer transition-transform duration-200 hover:scale-105"
                 />
               </BarChart>
+            </ResponsiveContainer>
+          </Card>
+        </motion.div>
+
+        {/* Pie Chart */}
+        <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.3 }}>
+          <Card className="bg-zinc-800 p-4 shadow-md text-white rounded-2xl">
+            <h3 className="text-xl font-semibold mb-4">Spending by Category</h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={categoryData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#34d399"
+                  label
+                >
+                  {categoryData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Legend verticalAlign="bottom" height={36} />
+                <Tooltip />
+              </PieChart>
             </ResponsiveContainer>
           </Card>
         </motion.div>
@@ -164,7 +214,9 @@ export default function HomePage() {
           },
         }}
       >
-        <h3 className="text-xl font-semibold text-white">Recent Transactions</h3>
+        <h3 className="text-xl font-semibold text-white">
+          Recent Transactions
+        </h3>
         {transactions.slice(0, 5).map((tx) => (
           <motion.div
             key={tx.id}
@@ -183,8 +235,9 @@ export default function HomePage() {
                 </p>
               </div>
               <span
-                className={`text-lg font-semibold ${tx.amount >= 0 ? "text-green-400" : "text-red-400"
-                  }`}
+                className={`text-lg font-semibold ${
+                  tx.amount >= 0 ? "text-green-400" : "text-red-400"
+                }`}
               >
                 ₹{tx.amount.toFixed(2)}
               </span>

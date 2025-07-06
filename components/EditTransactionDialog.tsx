@@ -11,16 +11,27 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { Loader2, Pencil } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { predefinedCategories } from "@/data/category";
+
 
 type Transaction = {
   id: string;
   description: string;
   amount: number;
   date: string;
+  category?: string;
 };
 
 interface EditTransactionDialogProps {
@@ -28,13 +39,17 @@ interface EditTransactionDialogProps {
   onUpdateSuccess: () => void;
 }
 
+
 export default function EditTransactionDialog({
   transaction,
   onUpdateSuccess,
 }: EditTransactionDialogProps) {
-  const [editTx, setEditTx] = useState<Transaction>(transaction);
+  const [editTx, setEditTx] = useState<Transaction>({
+    ...transaction,
+    category: transaction.category || "Other",
+  });
   const [isUpdating, setIsUpdating] = useState(false);
-  const [open, setOpen] = useState(false); // <-- controlled state
+  const [open, setOpen] = useState(false);
 
   const handleChange = (field: keyof Transaction, value: string | number) => {
     setEditTx({ ...editTx, [field]: value });
@@ -53,7 +68,7 @@ export default function EditTransactionDialog({
 
       toast.success("Transaction updated successfully!");
       onUpdateSuccess();
-      setOpen(false); 
+      setOpen(false);
     } catch (err) {
       toast.error("Update failed. Try again.");
     } finally {
@@ -75,7 +90,7 @@ export default function EditTransactionDialog({
 
         <div className="space-y-4">
           <div>
-            <label className="text-sm text-zinc-300">Description</label>
+            <Label htmlFor="description" className="text-sm text-zinc-300">Description</Label>
             <Input
               className="bg-zinc-800 text-white"
               value={editTx.description}
@@ -84,23 +99,44 @@ export default function EditTransactionDialog({
           </div>
 
           <div>
-            <label className="text-sm text-zinc-300">Amount</label>
+            <Label htmlFor="amount" className="text-sm text-zinc-300">Amount</Label>
             <Input
               type="number"
               className="bg-zinc-800 text-white"
               value={editTx.amount}
-              onChange={(e) => handleChange("amount", parseFloat(e.target.value))}
+              onChange={(e) =>
+                handleChange("amount", parseFloat(e.target.value))
+              }
             />
           </div>
 
           <div>
-            <label className="text-sm text-zinc-300">Date</label>
+            <Label htmlFor={"Date"} className="text-sm text-zinc-300">Date</Label>
             <Input
               type="date"
-              className="bg-zinc-800 text-white"
+              className="bg-zinc-800 text-white [&::-webkit-calendar-picker-indicator]:invert"
               value={format(new Date(editTx.date), "yyyy-MM-dd")}
               onChange={(e) => handleChange("date", e.target.value)}
             />
+          </div>
+
+          <div>
+            <Label className="text-sm text-zinc-300">Category</Label>
+            <Select
+              value={editTx.category}
+              onValueChange={(value) => handleChange("category", value)}
+            >
+              <SelectTrigger className="bg-zinc-800 text-white w-full">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-900 text-white border-zinc-700">
+                {predefinedCategories.map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {cat}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

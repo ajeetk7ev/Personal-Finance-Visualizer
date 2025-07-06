@@ -848,6 +848,7 @@ export namespace Prisma {
     description: string | null
     amount: number | null
     date: Date | null
+    category: string | null
   }
 
   export type TransactionMaxAggregateOutputType = {
@@ -855,6 +856,7 @@ export namespace Prisma {
     description: string | null
     amount: number | null
     date: Date | null
+    category: string | null
   }
 
   export type TransactionCountAggregateOutputType = {
@@ -862,6 +864,7 @@ export namespace Prisma {
     description: number
     amount: number
     date: number
+    category: number
     _all: number
   }
 
@@ -879,6 +882,7 @@ export namespace Prisma {
     description?: true
     amount?: true
     date?: true
+    category?: true
   }
 
   export type TransactionMaxAggregateInputType = {
@@ -886,6 +890,7 @@ export namespace Prisma {
     description?: true
     amount?: true
     date?: true
+    category?: true
   }
 
   export type TransactionCountAggregateInputType = {
@@ -893,6 +898,7 @@ export namespace Prisma {
     description?: true
     amount?: true
     date?: true
+    category?: true
     _all?: true
   }
 
@@ -987,6 +993,7 @@ export namespace Prisma {
     description: string
     amount: number
     date: Date
+    category: string
     _count: TransactionCountAggregateOutputType | null
     _avg: TransactionAvgAggregateOutputType | null
     _sum: TransactionSumAggregateOutputType | null
@@ -1013,6 +1020,7 @@ export namespace Prisma {
     description?: boolean
     amount?: boolean
     date?: boolean
+    category?: boolean
   }, ExtArgs["result"]["transaction"]>
 
 
@@ -1022,9 +1030,10 @@ export namespace Prisma {
     description?: boolean
     amount?: boolean
     date?: boolean
+    category?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "amount" | "date", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "amount" | "date" | "category", ExtArgs["result"]["transaction"]>
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
@@ -1034,6 +1043,7 @@ export namespace Prisma {
       description: string
       amount: number
       date: Date
+      category: string
     }, ExtArgs["result"]["transaction"]>
     composites: {}
   }
@@ -1430,6 +1440,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly date: FieldRef<"Transaction", 'DateTime'>
+    readonly category: FieldRef<"Transaction", 'String'>
   }
     
 
@@ -1786,7 +1797,8 @@ export namespace Prisma {
     id: 'id',
     description: 'description',
     amount: 'amount',
-    date: 'date'
+    date: 'date',
+    category: 'category'
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -1880,6 +1892,7 @@ export namespace Prisma {
     description?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
+    category?: StringFilter<"Transaction"> | string
   }
 
   export type TransactionOrderByWithRelationInput = {
@@ -1887,6 +1900,7 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     date?: SortOrder
+    category?: SortOrder
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -1897,6 +1911,7 @@ export namespace Prisma {
     description?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
+    category?: StringFilter<"Transaction"> | string
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
@@ -1904,6 +1919,7 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     date?: SortOrder
+    category?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
     _avg?: TransactionAvgOrderByAggregateInput
     _max?: TransactionMaxOrderByAggregateInput
@@ -1919,6 +1935,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    category?: StringWithAggregatesFilter<"Transaction"> | string
   }
 
   export type TransactionCreateInput = {
@@ -1926,6 +1943,7 @@ export namespace Prisma {
     description: string
     amount: number
     date?: Date | string
+    category?: string
   }
 
   export type TransactionUncheckedCreateInput = {
@@ -1933,18 +1951,21 @@ export namespace Prisma {
     description: string
     amount: number
     date?: Date | string
+    category?: string
   }
 
   export type TransactionUpdateInput = {
     description?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionUncheckedUpdateInput = {
     description?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionCreateManyInput = {
@@ -1952,18 +1973,21 @@ export namespace Prisma {
     description: string
     amount: number
     date?: Date | string
+    category?: string
   }
 
   export type TransactionUpdateManyMutationInput = {
     description?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionUncheckedUpdateManyInput = {
     description?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2008,6 +2032,7 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     date?: SortOrder
+    category?: SortOrder
   }
 
   export type TransactionAvgOrderByAggregateInput = {
@@ -2019,6 +2044,7 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     date?: SortOrder
+    category?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
@@ -2026,6 +2052,7 @@ export namespace Prisma {
     description?: SortOrder
     amount?: SortOrder
     date?: SortOrder
+    category?: SortOrder
   }
 
   export type TransactionSumOrderByAggregateInput = {

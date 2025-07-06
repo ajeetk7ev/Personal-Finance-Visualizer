@@ -19,4 +19,5 @@ model Transaction {
   description String
   amount      Float
   date        DateTime @default(now())
+  category    String   @default("Other")
 }

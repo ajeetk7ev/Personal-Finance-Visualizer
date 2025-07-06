@@ -24,7 +24,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   try {
     const id = (await params).id;
     const body = await req.json();
-    const { description, amount, date } = body;
+    const { description, amount, date, category } = body;
 
     if (!description || typeof amount !== "number" || !date) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
@@ -36,6 +36,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
         description,
         amount,
         date: new Date(date),
+        category: category || "Other", 
       },
     });
 

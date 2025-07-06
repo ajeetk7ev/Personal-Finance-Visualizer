@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Trash2, Loader2, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import EditTransactionDialog from "@/components/EditTransactionDialog";
 
 import {
   AlertDialog,
@@ -19,19 +20,24 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 
-import EditTransactionDialog from "@/components/EditTransactionDialog";
-
 type Transaction = {
   id: string;
   description: string;
   amount: number;
   date: string;
+  category?: string;
 };
+
+const getMonthFromDate = (date: string) =>
+  new Date(date).toLocaleString("default", { month: "long" });
 
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [selectedTxId, setSelectedTxId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedMonth, setSelectedMonth] = useState<string>("All");
 
   useEffect(() => {
     fetchTransactions();
@@ -70,6 +76,18 @@ export default function TransactionsPage() {
     }
   };
 
+  // === Filter Logic ===
+  const categories = ["All", ...new Set(transactions.map((t) => t.category || "Uncategorized"))];
+  const months = ["All", ...new Set(transactions.map((t) => getMonthFromDate(t.date)))];
+
+  const filteredTransactions = transactions.filter((tx) => {
+    const matchesCategory =
+      selectedCategory === "All" || (tx.category || "Uncategorized") === selectedCategory;
+    const matchesMonth =
+      selectedMonth === "All" || getMonthFromDate(tx.date) === selectedMonth;
+    return matchesCategory && matchesMonth;
+  });
+
   return (
     <div className="max-w-4xl mx-auto mt-8 space-y-6 px-4">
       <motion.h1
@@ -82,7 +100,40 @@ export default function TransactionsPage() {
         All Transactions
       </motion.h1>
 
-      {transactions.length === 0 ? (
+      {/* Filters */}
+      <div className="flex flex-wrap gap-4 items-center">
+        <div>
+          <label className="block text-sm text-zinc-400 mb-1">Filter by Category</label>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="bg-zinc-800 text-white px-3 py-2 rounded-md"
+          >
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm text-zinc-400 mb-1">Filter by Month</label>
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className="bg-zinc-800 text-white px-3 py-2 rounded-md"
+          >
+            {months.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {filteredTransactions.length === 0 ? (
         <motion.p
           className="text-zinc-400"
           initial={{ opacity: 0 }}
@@ -101,7 +152,7 @@ export default function TransactionsPage() {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {transactions.map((tx) => (
+          {filteredTransactions.map((tx) => (
             <motion.div
               key={tx.id}
               variants={{
@@ -118,25 +169,24 @@ export default function TransactionsPage() {
                     <p className="text-sm text-zinc-400">
                       {format(new Date(tx.date), "dd MMM yyyy")}
                     </p>
+                    <p className="text-xs text-zinc-500 mt-1">
+                      Category: {tx.category || "Uncategorized"}
+                    </p>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <span
-                      className={`text-lg font-bold ${tx.amount >= 0
-                        ? "text-green-400"
-                        : "text-red-400"
+                      className={`text-lg font-bold ${tx.amount >= 0 ? "text-green-400" : "text-red-400"
                         }`}
                     >
                       ₹{tx.amount.toFixed(2)}
                     </span>
 
-                    {/* Edit Button */}
                     <EditTransactionDialog
                       transaction={tx}
                       onUpdateSuccess={fetchTransactions}
                     />
 
-                    {/* Delete Button */}
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <button onClick={() => setSelectedTxId(tx.id)}>

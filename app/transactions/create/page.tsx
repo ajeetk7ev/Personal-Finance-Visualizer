@@ -7,11 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FilePlus } from "lucide-react";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { predefinedCategories } from "@/data/category";
 
 export default function CreateTransactionPage() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
+  const [category, setCategory] = useState("Other");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -42,6 +45,7 @@ export default function CreateTransactionPage() {
           description,
           amount: parseFloat(amount),
           date: new Date(date),
+          category,
         }),
       });
 
@@ -59,7 +63,7 @@ export default function CreateTransactionPage() {
 
   return (
     <div className="max-w-2xl mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-6 text-green-400 flex items-center gap-2">
+      <h1 className=" text-2xl sm:text-3xl font-bold mb-6 text-green-400 flex items-center gap-2">
         <FilePlus className="w-7 h-7 text-green-400" />
         Create New Transaction
       </h1>
@@ -104,8 +108,24 @@ export default function CreateTransactionPage() {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="bg-zinc-900 text-white"
+                className="bg-zinc-900 text-white [&::-webkit-calendar-picker-indicator]:invert"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category" className="text-white">Category</Label>
+              <Select value={category} onValueChange={setCategory} >
+                <SelectTrigger className="bg-zinc-900 text-white w-full">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent className="bg-zinc-900 text-white">
+                  {predefinedCategories.map((cat) => (
+                    <SelectItem key={cat} value={cat}>
+                      {cat}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <Button

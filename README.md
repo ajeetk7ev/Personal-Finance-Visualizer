@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 Personal-Finance-Visualizer
 
-## Getting Started
+> A modern, responsive web app to manage and track your daily finances – built with Next.js, MongoDB, and elegant UI animations.
+---
 
-First, run the development server:
+## 📌 Stage 1 – Basic Transaction Tracking
 
+This repository includes **Stage 1** of the Personal Finance Visualizer assignment.
+
+### ✨ Features Implemented
+
+- ✅ Create, Edit, and Delete Transactions
+- ✅ Input Fields: `Amount`, `Description`, `Date`
+- ✅ Client-side form validation
+- ✅ Monthly expense tracking with **Bar Chart**
+- ✅ Toast notifications for actions (success/failure)
+- ✅ Confirmation dialog for safe deletes
+- ✅ Responsive layout with dark mode support
+- ✅ Polished UI using `shadcn/ui` + `TailwindCSS`
+- ✅ Entry/exit animations using `framer-motion`
+
+---
+
+## 🛠️ Tech Stack
+
+| Category         | Tech Used                        |
+|------------------|----------------------------------|
+| Framework        | [Next.js 15 (App Router)](https://nextjs.org/) |
+| Database         | [MongoDB](https://www.mongodb.com/) + [Prisma ORM](https://www.prisma.io/) |
+| Styling          | [Tailwind CSS](https://tailwindcss.com/) |
+| UI Components    | [shadcn/ui](https://ui.shadcn.com/) |
+| Charts           | [Recharts](https://recharts.org/en-US) |
+| Animations       | [Framer Motion](https://www.framer.com/motion/) |
+| Notifications    | [react-hot-toast](https://react-hot-toast.com/) |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 18+ 
+- **npm/pnpm** package manager
+- **Git** version control
+
+### Installation
+
+1. **Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/kartikeykatyal/medimeet.git
+cd medimeet
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
+```bash
+pnpm install
+# or
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Environment Setup**
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Configure environment variables** (see Environment Variables section)
 
-## Learn More
+5. **Database setup**
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. **Run development server**
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+7. **Open your browser**
+```
+http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Environment Variables
 
-## Deploy on Vercel
+Create a `.env` file in your project root:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+# Database
+DATABASE_URL="your-mongodb-url"

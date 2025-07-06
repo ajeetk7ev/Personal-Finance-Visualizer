@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { description, amount, date } = body;
+    const { description, amount, date, category } = body;
 
     // Basic validation
     if (!description || !amount || !date) {
@@ -16,6 +16,7 @@ export async function POST(req: Request) {
         description,
         amount: parseFloat(amount),
         date: new Date(date),
+        category: category || "Other", 
       },
     });
 
