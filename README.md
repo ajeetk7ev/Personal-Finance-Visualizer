@@ -116,8 +116,8 @@ This repository now includes **Stage 3** of the assignment: powerful **budgeting
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/kartikeykatyal/medimeet.git
-cd medimeet
+git clone https://github.com/ajeetk7ev/Personal-Finance-Visualizer.git
+cd Personal-Finance-Visualizer
 ```
 
 2. **Install dependencies**
